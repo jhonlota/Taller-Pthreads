@@ -21,7 +21,7 @@ Este repositorio contiene los codigos del taller sobre hilos propuesto en la mat
 
 ## Introducción Una suave - Asignación
 Retire las instrucciones relacionadas con pthread_join y explicar:
-¿Cuál es el comportamiento del programa?
+* ¿Cuál es el comportamiento del programa?
 
 Para contestar esta pregunta, primero debemos conocer qué función cumple pthread_join, Esta función, de modo similar a como ocurre con la llamada al sistema wait, detiene el hilo que la invoca hasta que un hilo determinado termina y toma el valor retornado este.
 
@@ -42,7 +42,7 @@ y increment finished
 x: 0, y: 100
 x increment finished
 
-Si es inesperado, ¿qué te parece eso?
+* Si es inesperado, ¿qué te parece eso?
 
 El resultado de este algoritmo no es inesperado, ya que contamos con que no vamos a esperar el resultado que arroje el método inc_x, el cual da el fin a la ejecución del método inc_x_thread.
 

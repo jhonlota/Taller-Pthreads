@@ -7,18 +7,6 @@ En este repositorio encontrará los codigos de los ejercicios sobre Hilos.
 
 Este repositorio contiene los codigos del taller sobre hilos propuesto en la materia sistemas distribuidos. A continuación se procederá a responder las preguntas acerca de cada uno de ellos.
 
-3s-00.c
-
-3s-01.c
-
-3s-02.c
-
-3s-03.c
-
-3s-05.c
-
-
-
 ## Introducción Una suave - Asignación
 Retire las instrucciones relacionadas con pthread_join y explicar:
 * ¿Cuál es el comportamiento del programa?
@@ -28,8 +16,8 @@ Para contestar esta pregunta, primero debemos conocer qué función cumple pthre
 Dentro de nuestro código esta función se expresa de la siguiente manera:
 
 if (pthread_join(inc_x_thread, NULL)) {
-fprintf(stderr, "Error joining thread\n");
-return 2;
+	fprintf(stderr, "Error joining thread\n");
+	return 2;
 }
 En el código se quiere decir, que se espera al hilo inc_x_thread hasta que termine su ejecución. Si eliminamos esta condición damos por hecho que no deseamos esperar el cálculo de :
 
@@ -46,24 +34,23 @@ x increment finished
 
 El resultado de este algoritmo no es inesperado, ya que contamos con que no vamos a esperar el resultado que arroje el método inc_x, el cual da el fin a la ejecución del método inc_x_thread.
 
-Pruebe el programa varias veces.
-Todas las ejecuciones eran iguales?
+* Pruebe el programa varias veces. Todas las ejecuciones eran iguales?
 
 Se probó el algoritmo y todas las veces que este fue ejecutado, arrojaba el mismo resultado. En conclusión, el resultado no es variante ya que el cálculo de :
 
 void *inc_x(void *x_void_ptr) {
-int *x_ptr = (int *) x_void_ptr;
-while (++(*x_ptr) < 100);
-printf("x increment finished\n");
-return NULL;
+	int *x_ptr = (int *) x_void_ptr;
+	while (++(*x_ptr) < 100);
+	printf("x increment finished\n");
+	return NULL;
 }
 
 Es posterior a la finalización del programa principal. main.
 
 # 3s-00.c - Asignación
 Añadir las sentencias de código adecuadas que le permiten determinar la cantidad de tiempo que el programa pasa durante:
-Vector de inicialización.
-Contar el número de 3s en un vector dado.
+* Vector de inicialización.
+* Contar el número de 3s en un vector dado.
 
 Running 3s-00*** 3s-00 ***
 Initializing vector... Vector initialized!
@@ -91,11 +78,11 @@ Los tiempo de t0 van desde el tiempo inicial en cero (0), t1 hasta cuando termin
 # 3s-01.c - Asignación
 Incluya las frases de código utilizadas para estimar la cantidad de tiempo necesario para cada hilo para contar el número de 3s en una matriz dada.
 Responde las siguientes preguntas
-¿Cuántos elementos del vector grande tiene?
+* ¿Cuántos elementos del vector grande tiene?
 
 El vector posee el tamaño de: VECTOR_SIZE 1000000000 (1.000.000.000 Mil Millones)
 
-El programa es correcto? ¿Qué hay de malo en ello? ¿Qué valor se pone en el programa y es el valor esperado?
+* El programa es correcto? ¿Qué hay de malo en ello? ¿Qué valor se pone en el programa y es el valor esperado?
 
 Primero, al descargar el programa y ejecutar se generan dos Warning, primero es el RETURN del contador de 3s en el vector y el segundo es el valor que se le asigna al método *count3s_thread(void *arg), al momento de crear los hilos.
 
@@ -131,7 +118,7 @@ Initializing vector... Vector initialized!
 [[3s-01] Elapsed time 25.452999
 
 # 3s-02.c - Asignación
-Incluya las frases de código utilizadas para estimar la cantidad de tiempo necesario para cada hilo para contar el número de 3s en una matriz dada.
+* Incluya las frases de código utilizadas para estimar la cantidad de tiempo necesario para cada hilo para contar el número de 3s en una matriz dada.
 
 Antes de inicializar la distribución a cada uno de los hilos, se toma el tiempo t1
 
@@ -147,7 +134,7 @@ clock_t clocks[MAX_THREADS];
 
 Cada reloj, toma el tiempo al finalizar la ejecución satisfactoria de cada hilo. clocks[i] = clock();
 
-¿Qué está mal con este código esta vez?
+* ¿Qué está mal con este código esta vez?
 
 El error del paso de mensajes continua, pero la suma del total de hallazgos mejora, ya que se utiliza el pthread_join() para determinar que cada hilo finalice correctamente la lectura e interactúe con el acumulador count.
 
@@ -184,12 +171,12 @@ Thread [7] exited with status [8431333376], time [15606.806641]
 [[3s-02] Elapsed time 15606.810547
 
 # 3s-03.c - Asignación
-Identificar por qué este programa está haciendo bien.
+* Identificar por qué este programa está haciendo bien.
 
 Este programa funciona correctamente, lo que permite realizar este cálculo de manera correcta es la inclusión del semáforo pthread_mutex. Este bloque el hilo y permite que calcule lo necesario hasta que termine, de esta manera la concurrencia es simulada y además es fiable.
 
-Incluya las frases de código utilizadas para estimar la cantidad de tiempo necesario para cada hilo para contar el número de 3s en un segmento del array.
-¿Cuánto tiempo llevó a obtener el recuento total de 3s en toda el array.
+* Incluya las frases de código utilizadas para estimar la cantidad de tiempo necesario para cada hilo para contar el número de 3s en un segmento del array.
+* ¿Cuánto tiempo llevó a obtener el recuento total de 3s en toda el array.
 
 El tiempo total hasta la ejecución del último hilo es de [11331.391602], tiempo reducido a un 33% con respecto al cálculo anterior.
 
@@ -224,15 +211,15 @@ Thread [7] exited with status [8535928832], time [11331.391602]
 [[3s-03] Elapsed time 11331.415039
 
 # 3s-04.c - Asignación
-¿Cuál es la diferencia entre 3s-03.c y 3s-04.c?
+* ¿Cuál es la diferencia entre 3s-03.c y 3s-04.c?
 
 Se diferencian en el que 3s-03.c se bloquea y desbloquee el hilo al finalizar el for, el for lee los hallazgos de los 3s en el array.
 
 En cambio el 3s-04.c cada vez que encuentra un hallazgo bloquea y desbloque el hilo.
 
-Comparar el tiempo transcurrido por hilo durante el proceso de conteo y el tiempo total que todas las discusiones tomaron para contar el número de 3s en toda la matriz. Ejecutar todos los programas (3s-03 y 3s-04) tres veces y calcular el tiempo promedio por programa. Presente sus resultados y explicarlos.
+* Comparar el tiempo transcurrido por hilo durante el proceso de conteo y el tiempo total que todas las discusiones tomaron para contar el número de 3s en toda la matriz. Ejecutar todos los programas (3s-03 y 3s-04) tres veces y calcular el tiempo promedio por programa. Presente sus resultados y explicarlos.
 
-A simple vista y sin necesidad de graficar, el programa 3s-04 consume muchos más recursos, ya que su ejecución de las sentencias pthread_mutex_lock() y pthread_mutex_unlock(), n veces en el que se encuentra el 3 dentro del arreglo.
+A simple vista y sin necesidad de graficar, el programa 3s-04 consume muchos más recursos, ya que su ejecución de las sentencias pthread_mutex_lock() y pthread_mutex_unlock(), n veces en el que se encuentra el 3 dentro del arreglo.  (Tabla se refleja mejor en el documento PDF)
 
 Programa
 3s-03
@@ -312,7 +299,7 @@ Thread [7]
 247812.93750
 
 # 3s-05.c - Asignación
-¿Dónde reside el éxito de este programa?
+* ¿Dónde reside el éxito de este programa?
 
 Esta ejecución es perfecta, utiliza una variable local dentro de cada hilo para hacer el cálculo de los hallazgos de las 3s. pero lleva un acumulador global que si es protegido en el acceso a través del semaforo pthread_mutex.
 
@@ -320,7 +307,7 @@ pthread_mutex_lock(&mutex);
 count = count + private_count[id];
 pthread_mutex_unlock(&mutex);
 
-Compare esto ejecución del programa y comparar su rendimiento con casos anteriores y escribir sus observaciones.
+* Compare esto ejecución del programa y comparar su rendimiento con casos anteriores y escribir sus observaciones.
 
 El rendimiento también se observa en la reducción de los hilos para realizar la operación, esta vez se utilizaron 4 hilos, MAX_THREADS 4, estos redujo el tiempo de procesamiento y aumento la disponibilidad de procesamiento.
 

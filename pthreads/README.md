@@ -5,7 +5,7 @@ En este repositorio encontrará los codigos de los ejercicios sobre Hilos.
 
 ## Contenido de este repositorio
 
-Este repositorio contiene varios ejemplos que le permitirán familiarizarse con OpenMP. A continuación se procederá a comentar acerca de cada uno de ellos.
+Este repositorio contiene los codigos del taller sobre hilos propuesto en la materia sistemas distribuidos. A continuación se procederá a comentar acerca de cada uno de ellos.
 
 3s-00.c
 
